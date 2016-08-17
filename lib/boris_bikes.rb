@@ -42,15 +42,19 @@ end
 
 
 class Bike
-  def initialize(working = true)
-    @working = working
+  def initialize
+    @working = true
   end
 
   def working?
     @working
   end
 
-  def change_status(status)
-    @working = status
+  def be_broken
+    @working = false
+  end
+
+  def be_working
+    @working = true
   end
 end
