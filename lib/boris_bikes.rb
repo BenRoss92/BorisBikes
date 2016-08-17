@@ -16,13 +16,23 @@ class DockingStation
   end
 
   def dock(bike_object)
-    if @bikes.length >= @capacity
+    if full?
       raise "Docking Station is Full"
     else
       @bikes << bike_object
-      "Bike has been successfully docked"
     end
   end
+
+  private
+
+  def full?
+    if @capacity == @bikes.count
+      true
+    else
+      false
+    end
+  end
+
 end
 
 
