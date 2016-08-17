@@ -1,8 +1,7 @@
 require 'boris_bikes.rb'
 
 describe DockingStation do
-  before(:all) do
-    @station = DockingStation.new
+  before(:each) do
     @bike = Bike.new
   end
 
@@ -12,16 +11,17 @@ describe DockingStation do
     end
 
   it 'should raise error if no bikes available' do
-    expect{@station.release_bike}.to raise_error(RuntimeError)
+    expect{subject.release_bike}.to raise_error(RuntimeError)
   end
 
   it 'should dock a bike to an empty station' do
-    expect(@station.dock(@bike)).to eq("Bike has been successfully docked")
+    expect(subject.dock(@bike)).to eq([@bike])
   end
 
-  it 'should raise error if station is full' do
 
-    expect{20.times {@station.dock(Bike.new)}}.to raise_error(RuntimeError)
+
+  it 'should raise error if station is full' do
+    expect{(DockingStation::other_default + 1).times {subject.dock(Bike.new)}}.to raise_error(RuntimeError)
   end
 
 end
