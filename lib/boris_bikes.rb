@@ -12,7 +12,12 @@ class DockingStation
     if @bikes.empty?
       raise "No bikes available to be released"
     else
-      @bikes.pop
+      @bikes.each do |bike|
+        if bike.working? == true
+          return bike
+        end
+      end
+      raise "No bikes are working"
     end
   end
 
@@ -37,7 +42,15 @@ end
 
 
 class Bike
+  def initialize(working = true)
+    @working = working
+  end
+
   def working?
-    return true
+    @working
+  end
+
+  def change_status(status)
+    @working = status
   end
 end

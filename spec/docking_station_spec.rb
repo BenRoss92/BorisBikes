@@ -8,7 +8,7 @@ describe DockingStation do
   it 'should release the working bike' do
     expect(@bike).to be_an_instance_of(Bike)
     expect(@bike.working?).to eq(true)
-    end
+  end
 
   it 'should raise error if no bikes available' do
     expect{subject.release_bike}.to raise_error(RuntimeError)
@@ -32,5 +32,28 @@ describe DockingStation do
     expect(subject.capacity).to eq(20)
   end
 
-#
+  it 'should not release a bike that is a non-working bike and instead release the working bike' do
+    working_bike = Bike.new
+    non_working_bike = Bike.new(false)
+    non_working_bike2 = Bike.new(false)
+    station = DockingStation.new
+
+    station.dock(non_working_bike2)
+    station.dock(working_bike)
+    station.dock(non_working_bike)
+
+    expect(station.release_bike).to eq working_bike
+  end
+
+  it 'shoud return an error if you try to get a bike from a station with only non-working bikes' do
+    non_working_bike = Bike.new(false)
+    non_working_bike2 = Bike.new(false)
+    station = DockingStation.new
+
+    station.dock(non_working_bike2)
+    station.dock(non_working_bike)
+
+    expect{station.release_bike}.to raise_error(RuntimeError)
+  end
+
 end
