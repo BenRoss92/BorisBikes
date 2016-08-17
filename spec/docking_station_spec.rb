@@ -32,4 +32,5 @@ describe DockingStation do
     expect(subject.capacity).to eq(20)
   end
 
+#
 end
